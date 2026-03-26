@@ -137,6 +137,10 @@ body {
     background: var(--accent-color);
     color: var(--bg-color);
 }
+#theme-toggle svg, 
+#theme-toggle i {
+    pointer-events: none;
+}
 .sun-icon { display: none; }
 .moon-icon { display: block; }
 [data-theme="dark"] .sun-icon { display: block; }
@@ -183,6 +187,7 @@ body {
 .gradient-text {
     background: linear-gradient(135deg, var(--color-blue), var(--color-purple));
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 

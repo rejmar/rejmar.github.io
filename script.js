@@ -3,8 +3,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const themeToggleBtn = document.getElementById('theme-toggle');
     const htmlEl = document.documentElement;
 
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    let savedTheme = null;
+    try {
+        savedTheme = localStorage.getItem('theme');
+    } catch (e) {
+        console.warn('localStorage is not available: ', e);
+    }
+    
+    let prefersDark = false;
+    try {
+        prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    } catch (e) {
+        console.warn('matchMedia is not available: ', e);
+    }
 
     if (savedTheme) {
         htmlEl.setAttribute('data-theme', savedTheme);
@@ -19,7 +30,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
         
         htmlEl.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
+        try {
+            localStorage.setItem('theme', newTheme);
+        } catch (e) {
+            console.warn('localStorage is not available: ', e);
+        }
     });
 
     // 2. Premium Reveal Observer (Blur + FadeUp)
